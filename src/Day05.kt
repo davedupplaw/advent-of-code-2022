@@ -39,6 +39,14 @@ fun main() {
         }
     }
 
+    fun processMovesWith9001(stack: MutableMap<Int, List<String>>, moves: List<Triple<Int, Int, Int>>) {
+        moves.forEach { move ->
+            val topOfStack = stack[move.second]!!.takeLast(move.first)
+            stack[move.third] = stack[move.third]!!.plus(topOfStack)
+            stack[move.second] = stack[move.second]!!.dropLast(move.first)
+        }
+    }
+
     fun getTopOfStacks(stack: MutableMap<Int, List<String>>): List<String> {
         println("At end: $stack")
         return stack.entries.sortedBy { it.key }.map { it.value.lastOrNull() ?: " " }
@@ -53,8 +61,13 @@ fun main() {
         return getTopOfStacks(stack).joinToString("") { it }
     }
 
-    fun part2(input: List<String>): Int {
-        return 2
+    fun part2(input: List<String>): String {
+        val indexOfBlankLine = input.indexOfFirst { it.isBlank() }
+        val stack = readCrateStack(input, indexOfBlankLine)
+        val moves = readMoves(input, indexOfBlankLine)
+        processMovesWith9001(stack, moves)
+
+        return getTopOfStacks(stack).joinToString("") { it }
     }
 
     val test = readInput("Day05.test")
@@ -63,15 +76,15 @@ fun main() {
     println("part1 test: $part1test")
     check(part1test == "CMZ")
 
-//    val part2test = part2(test)
-//    println("part2 test: $part2test")
-//    check(part2test == 70)
+    val part2test = part2(test)
+    println("part2 test: $part2test")
+    check(part2test == "MCD")
 
     val input = readInput("Day05")
 
     val part1 = part1(input)
     println("Part1: $part1")
 
-//    val part2 = part2(input)
-//    println("Part2: $part2")
+    val part2 = part2(input)
+    println("Part2: $part2")
 }
