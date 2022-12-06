@@ -9,8 +9,8 @@ fun main() {
         return findFirstPositionAndCharsOfN(input, 4).first
     }
 
-    fun part2(input: List<String>): Int {
-        return 2
+    fun part2(input: String): Int {
+        return findFirstPositionAndCharsOfN(input, 14).first
     }
 
     val test = readInput("Day06.test")
@@ -29,17 +29,29 @@ fun main() {
     check(part1test4 == 10)
     val part1test5 = part1(test[4])
     println("part1 test (5): $part1test5")
-    check(part1test5 ==11)
+    check(part1test5 == 11)
 
-//    val part2test = part2(test)
-//    println("part2 test: $part2test")
-//    check(part2test == 70)
+    val part2test1 = part2(test[0])
+    println("part2 test (1): $part2test1")
+    check(part2test1 == 19)
+    val part2test2 = part2(test[1])
+    println("part2 test (2): $part2test2")
+    check(part2test2 == 23)
+    val part2test3 = part2(test[2])
+    println("part2 test (3): $part2test3")
+    check(part2test3 == 23)
+    val part2test4 = part2(test[3])
+    println("part2 test (4): $part2test4")
+    check(part2test4 == 29)
+    val part2test5 = part2(test[4])
+    println("part2 test (5): $part2test5")
+    check(part2test5 == 26)
 
     val input = readInput("Day06")
 
     val part1 = part1(input[0])
     println("Part1: $part1")
 
-//    val part2 = part2(input)
-//    println("Part2: $part2")
+    val part2 = part2(input[0])
+    println("Part2: $part2")
 }
