@@ -34,10 +34,8 @@ fun main() {
         var currentDir = root
         input.forEach { output ->
             val bits = output.split(" ")
-            println(bits)
 
             if (bits[0] == "$") {
-                println("Command ${bits[1]}")
                 when (bits[1]) {
                     "cd" -> currentDir = when (bits[2]) {
                         ".." -> currentDir.parent!!
@@ -61,14 +59,17 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val root = parseOutput(input)
-        println(root)
         val dirSizes = dirSizes(root)
-        println(dirSizes)
         return dirSizes.filter { it.second <= 100000 }.sumOf { it.second }
     }
 
     fun part2(input: List<String>): Int {
-        return 2
+        val root = parseOutput(input)
+        val total = 70000000
+        val freeSpace = total - root.size()
+        val dirSizes = dirSizes(root).sortedBy { it.second }
+        val toRemove = dirSizes.find { freeSpace + it.second >= 30000000 }
+        return toRemove!!.second
     }
 
     val test = readInput("Day07.test")
@@ -77,15 +78,15 @@ fun main() {
     println("part1 test: $part1test")
     check(part1test == 95437)
 
-//    val part2test = part2(test)
-//    println("part2 test: $part2test")
-//    check(part2test == 70)
+    val part2test = part2(test)
+    println("part2 test: $part2test")
+    check(part2test == 24933642)
 
     val input = readInput("Day07")
 
     val part1 = part1(input)
     println("Part1: $part1")
 
-//    val part2 = part2(input)
-//    println("Part2: $part2")
+    val part2 = part2(input)
+    println("Part2: $part2")
 }
